@@ -2,24 +2,19 @@ import abc
 
 import torch
 import numpy as np
-import seq_aligner
 from PIL import Image
-import torch.nn.functional as nnf
 from diffusers import DiffusionPipeline
 from typing import Union, Tuple, List, Callable, Dict, Optional
 
 import ptp_utils
+from controllers import tokenizer
 from controllers import AttentionControl, AttentionStore, AttentionReplace, EmptyControl
 
 
 device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
-model_id = "CompVis/ldm-text2im-large-256"
+
 NUM_DIFFUSION_STEPS = 50
 GUIDANCE_SCALE = 5.
-MAX_NUM_WORDS = 77
-# load model and scheduler
-ldm = DiffusionPipeline.from_pretrained(model_id).to(device)
-tokenizer = ldm.tokenizer
 
 
 def aggregate_attention(attention_store: AttentionStore, prompts: [str], res: int, from_where: List[str], is_cross: bool, select: int):

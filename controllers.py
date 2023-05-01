@@ -4,9 +4,19 @@ import torch
 import numpy as np
 import seq_aligner
 import torch.nn.functional as nnf
+from diffusers import DiffusionPipeline
 from typing import Union, Tuple, List, Dict, Optional
 
 import ptp_utils
+
+
+MAX_NUM_WORDS = 77
+
+device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
+model_id = "CompVis/ldm-text2im-large-256"
+
+ldm = DiffusionPipeline.from_pretrained(model_id).to(device)
+tokenizer = ldm.tokenizer
 
 
 class LocalBlend:
