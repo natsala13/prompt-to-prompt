@@ -5,7 +5,6 @@ import numpy as np
 import seq_aligner
 from PIL import Image
 import torch.nn.functional as nnf
-from IPython.display import display
 from diffusers import DiffusionPipeline
 from typing import Union, Tuple, List, Callable, Dict, Optional
 
